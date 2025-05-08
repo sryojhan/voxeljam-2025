@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 978af551216f48b48b38cff3f13b070f, type: 3}
+  m_Name: Intro Dialogue
+  m_EditorClassIdentifier: 
+  completeDialogue:
+  - isSpeaker1: 1
+    speaker: {fileID: 11400000, guid: 6c84166ddd87d50408eb4e3f13d63ca2, type: 2}
+    text: Lorem ipsum dolor sit amet consectetur adipiscing elit dictumst suscipit
+      aptent magnis, faucibus dis condimentum lectus morbi eu non ut luctus integer
+      ligula, risus imperdiet egestas urna hendrerit tempus viverra ante sed fermentum.
+      Proin suscipit etiam porttitor sed mattis facilisi eleifend vivamus senectus
+      vestibulum conubia, dictumst aenean a nec feugiat nullam euismod orci nisl
+      dui felis, est donec vel sociosqu metus diam lobortis habitasse nibh velit.
+      Senectus aenean mollis vulputate metus massa tempor sagittis odio, eget mattis
+      class nostra vivamus diam venenatis cras, proin risus urna rutrum leo pulvinar
+      potenti.
+  - isSpeaker1: 0
+    speaker: {fileID: 11400000, guid: bda2632cf5c6fa74295b19af6811d109, type: 2}
+    text: Yojhan tengo algo que decirte...
+  - isSpeaker1: 0
+    speaker: {fileID: 11400000, guid: bda2632cf5c6fa74295b19af6811d109, type: 2}
+    text: Hueles a culo
+  - isSpeaker1: 1
+    speaker: {fileID: 11400000, guid: 6c84166ddd87d50408eb4e3f13d63ca2, type: 2}
+    text: Ostras...
+  sceneIndexToLoadWhenComplete: 0
+  background: {fileID: 296725949041184523, guid: 3066f28703cff5e478271d79fce6e0bb, type: 3}
+  firstSpeakerLeft: {fileID: 11400000, guid: 6c84166ddd87d50408eb4e3f13d63ca2, type: 2}
+  firstSpeakerRight: {fileID: 11400000, guid: bda2632cf5c6fa74295b19af6811d109, type: 2}

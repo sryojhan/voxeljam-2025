@@ -28,7 +28,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _TransitionGradient:
-        m_Texture: {fileID: 2800000, guid: 09f83992a461dd847ae8a6900ff3766f, type: 3}
+        m_Texture: {fileID: 2800000, guid: b64f2036e61e0be4e81489797d3184fb, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -46,9 +46,9 @@ Material:
     m_Ints: []
     m_Floats:
     - _inProgress: 0
-    - _inverted: 0
+    - _inverted: 1
     - _time: 0
     m_Colors:
-    - _BackgroundColor: {r: 0, g: 0, b: 0, a: 0}
+    - _BackgroundColor: {r: 0.8666667, g: 0.8427487, b: 0.4862745, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

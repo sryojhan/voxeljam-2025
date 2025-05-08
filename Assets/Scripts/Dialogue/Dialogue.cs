@@ -15,6 +15,7 @@ public class Dialogue : ScriptableObject
     }
 
     public SpeechBubble[] completeDialogue;
+
     public int sceneIndexToLoadWhenComplete = 0;
 
     public Sprite background;
