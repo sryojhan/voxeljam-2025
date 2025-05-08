@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a4f20b810e167649bd4f38cd81beb42, type: 3}
+  m_Name: DefaultTransition
+  m_EditorClassIdentifier: 
+  inEnabled: 1
+  inTransition: {fileID: 2800000, guid: 015720429fd046144a1997e7616e3302, type: 3}
+  inDuration: 1
+  inInverted: 0
+  inInterpolation:
+    type: 3
+    mode: 1
+  background: {fileID: 0}
+  middleScreenDuration: 0
+  outEnabled: 1
+  outTransition: {fileID: 2800000, guid: 09f83992a461dd847ae8a6900ff3766f, type: 3}
+  outDuration: 10
+  outInverted: 0
+  outInterpolation:
+    type: 3
+    mode: 2
