@@ -77,6 +77,7 @@ namespace SceneTransition
             inTransition = true;
 
             material.SetTexture("_Background", transition.background);
+            material.SetColor("_BackgroundColor", transition.backgroundColor);
             material.SetTexture("_TransitionGradient", transition.inTransition);
 
             //Fade in

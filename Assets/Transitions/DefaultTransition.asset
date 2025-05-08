@@ -17,13 +17,13 @@ MonoBehaviour:
   inDuration: 1
   inInverted: 0
   inInterpolation:
-    type: 3
-    mode: 1
+    type: 0
+    mode: 0
   background: {fileID: 0}
   middleScreenDuration: 0
   outEnabled: 1
   outTransition: {fileID: 2800000, guid: 09f83992a461dd847ae8a6900ff3766f, type: 3}
-  outDuration: 10
+  outDuration: 1
   outInverted: 0
   outInterpolation:
     type: 3
