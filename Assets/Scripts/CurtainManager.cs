@@ -40,7 +40,7 @@ public class CurtainManager : Singleton<CurtainManager>
 
         void End()
         {
-            print("Animacion terminada");
+            //Curtain completely opens
         }
 
         curtainMovement.Play(this, Movement, null, End);

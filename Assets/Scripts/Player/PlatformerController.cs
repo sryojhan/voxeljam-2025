@@ -1,11 +1,3 @@
-/*
- *  Componente hecho por Yojhan Steven Garcia Peña
- */
-
-
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.Presets;
 using UnityEngine;
 
 public class Movement : MonoBehaviour
@@ -60,7 +52,6 @@ public class Movement : MonoBehaviour
     public float airFallSpeed = 10;
 
     [Header("World jump data")]
-    public Transform feet;
     public LayerMask groundLayer;
 
 
@@ -71,6 +62,7 @@ public class Movement : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     private Animator animator;
     private Rigidbody2D rigidBody;
+    private BoxCollider2D col;
     private ParticleSystem groundParticles;
     private ParticleSystem.MainModule mainModule;
 
@@ -97,12 +89,13 @@ public class Movement : MonoBehaviour
 
     private void Start()
     {
-        spriteRenderer = GetComponent<SpriteRenderer>();
-        animator = GetComponent<Animator>();
+        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        animator = GetComponentInChildren<Animator>();
         rigidBody = GetComponent<Rigidbody2D>();
+        col = GetComponent<BoxCollider2D>();
 
-        groundParticles = feet.GetComponent<ParticleSystem>();
-        mainModule = groundParticles.main;
+        //groundParticles = feet.GetComponent<ParticleSystem>();
+        //mainModule = groundParticles.main;
 
         //groundContact = null;
     }
@@ -120,7 +113,7 @@ public class Movement : MonoBehaviour
 
 
         SetUpAnimation();
-        SetUpParticles();
+        //SetUpParticles();
     }
 
     private void FixedUpdate()
@@ -164,7 +157,6 @@ public class Movement : MonoBehaviour
             jumpButtonPressed = false;
         }
 
-        Crouch();
     }
 
     /// <summary>
@@ -188,10 +180,10 @@ public class Movement : MonoBehaviour
     /// </summary>
     void CalculateGrounded()
     {
-        Collider2D col = Physics2D.OverlapCircle(feet.position, feetSize, groundLayer);
+        Collider2D collision = Physics2D.OverlapCircle(
+            new Vector2(transform.position.x, col.bounds.min.y), feetSize, groundLayer);
 
-
-        bool newGroundedValue = col != null;
+        bool newGroundedValue = collision != null;
 
         if (!isGrounded && newGroundedValue)
         {
@@ -309,11 +301,8 @@ public class Movement : MonoBehaviour
 
     void SetUpAnimation()
     {
-        animator.SetBool("IsGrounded", isGrounded);
-        animator.SetFloat("Velocity", Mathf.Abs(rigidBody.linearVelocity.x));
 
-        if (horizontalInput != 0)
-            spriteRenderer.flipX = horizontalInput < 0;
+
     }
 
     /// <summary>
@@ -326,8 +315,8 @@ public class Movement : MonoBehaviour
          * Change the particle direction depending on the velocity of the player
          */
 
-        if (rigidBody.linearVelocity.x != 0)
-            feet.rotation = Quaternion.Euler(0, rigidBody.linearVelocity.x > 0 ? 0 : 180, 0);
+        //if (rigidBody.linearVelocity.x != 0)
+        //    feet.rotation = Quaternion.Euler(0, rigidBody.linearVelocity.x > 0 ? 0 : 180, 0);
 
 
         /*
@@ -358,21 +347,10 @@ public class Movement : MonoBehaviour
         //}
     }
 
-
-    void Crouch()
+    private void OnDrawGizmosSelected()
     {
-        goDownwards = Input.GetButton("Crouch");
+        if (col == null) col = GetComponent<BoxCollider2D>();
 
-
-        if (Input.GetButtonDown("Crouch"))
-        {
-
-
-        }
-
-        if (goDownwards)
-        {
-            horizontalInput = 0;
-        }
+        Gizmos.DrawSphere(new Vector2(transform.position.x, col.bounds.min.y), feetSize);
     }
 }
