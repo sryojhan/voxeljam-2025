@@ -272,7 +272,13 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      player jump 48x48_0: 6095442732890646450
+      player jump 48x48_1: 1807506647805179437
+      player jump 48x48_2: 1646680887508868507
+      player jump 48x48_3: -7720507637387131711
+      player jump 48x48_4: 3686693968092533872
+      player jump 48x48_5: -1015630898850964173
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
