@@ -126,8 +126,8 @@ public class Morph : MonoBehaviour
 
             Vector2 objectPos = new Vector2(
 
-                parentPos.x + (destination.x - destination.width * pivot.x) * pixelsPerUnit,
-                parentPos.y + (destination.y - destination.height * pivot.y) * pixelsPerUnit
+                parentPos.x + (destination.x - destination.width * pivot.x) / pixelsPerUnit,
+                parentPos.y + (destination.y - destination.height * pivot.y) / pixelsPerUnit
 
                 );
 

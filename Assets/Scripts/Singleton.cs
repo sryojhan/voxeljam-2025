@@ -24,6 +24,7 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
                 //Check if the singleton needs to persists between scenes
                 if(!(_instance as Singleton<T>).DestroyOnLoad)
                 {
+                    _instance.transform.parent = null;
                     DontDestroyOnLoad(_instance.gameObject);
                 }
             }

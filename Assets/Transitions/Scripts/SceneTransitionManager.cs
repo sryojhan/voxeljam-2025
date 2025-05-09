@@ -51,14 +51,14 @@ namespace SceneTransition
         //    ChangeScene((int)sceneIndex);
         //}
 
-        public void ChangeScene(int sceneIndex)
+        public void ChangeScene(string sceneName)
         {
             if (inTransition)
             {
                 throw new UnityException("There is already a transition in progress");
             }
 
-            StartCoroutine(SceneSwap(sceneIndex));
+            StartCoroutine(SceneSwap(sceneName));
         }
 
         public void CancelCurrentTransition()
@@ -72,7 +72,7 @@ namespace SceneTransition
             inTransition = false;
         }
 
-        private IEnumerator SceneSwap(int sceneIndex)
+        private IEnumerator SceneSwap(string sceneName)
         {
             inTransition = true;
 
@@ -99,7 +99,7 @@ namespace SceneTransition
 
             material.SetTexture("_TransitionGradient", transition.outTransition);
             //Load Scene
-            SceneManager.LoadScene(sceneIndex);
+            SceneManager.LoadScene(sceneName);
 
             if (transition.middleScreenDuration > 0)
                 yield return new WaitForSeconds(transition.middleScreenDuration);
@@ -131,15 +131,22 @@ namespace SceneTransition
         }
 
         [Button]
-        public void ChangeSceneTo1()
+        public void ChangeSceneToMenu()
         {
-            ChangeScene(0);
+            ChangeScene("MenuScene");
         }
 
         [Button]
-        public void ChangeSceneTo2()
+        public void ChangeSceneToDialogue()
         {
-            ChangeScene(1);
+            ChangeScene("DialogueScene");
+        }
+
+
+        [Button]
+        public void ChangeSceneToSample()
+        {
+            ChangeScene("SampleScene");
         }
 
     }
