@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class AudioManager : Singleton<AudioManager>
 {
+    protected override bool DestroyOnLoad => false;
+
     private AudioSource m_AudioSource;
 
     private void Start()
