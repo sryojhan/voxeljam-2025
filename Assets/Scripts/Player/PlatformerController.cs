@@ -86,6 +86,8 @@ public class Movement : MonoBehaviour
     private bool isSliding = false;
     private float slidingTimer = 0;
 
+    private bool wasDownForcedLastFrame = false;
+    private float beginForcedDownTime = 0;
     private void Start()
     {
         stateMachine = new PlayerStateMachine();
@@ -196,6 +198,15 @@ public class Movement : MonoBehaviour
             justGrounded = true;
 
 
+            //Check if the player was adding speed to the fall to add to the style
+            if (wasDownForcedLastFrame)
+            {
+                wasDownForcedLastFrame = false;
+                StyleMeter.instance.ForceDownFall(Time.time - beginForcedDownTime);
+            }
+
+            StyleMeter.instance.BeginGrounded();
+
             initialJump = false;
 
 
@@ -204,6 +215,12 @@ public class Movement : MonoBehaviour
             float speedTransfer = rigidBody.linearVelocity.y - rigidBody.linearVelocity.x;
 
             rigidBody.AddForce(2 * horizontalInput * speedTransfer * Vector2.right);
+        }
+        else if (isGrounded && !newGroundedValue)
+        {
+            //Player just left the ground
+
+            StyleMeter.instance.BeginAirborne();
         }
 
 
@@ -294,17 +311,35 @@ public class Movement : MonoBehaviour
 
     void AddFallSpeed()
     {
-        if (rigidBody.linearVelocity.y < 0 && !isGrounded)
-        {
-            float downwardsSpeed = airFallSpeed;
+        if (isGrounded) return;
 
-            if (goDownwards)
+        float downwardsSpeed = 0;
+
+        if (rigidBody.linearVelocityY < 0)
+        {
+            downwardsSpeed += airFallSpeed;
+        }
+
+        if (goDownwards)
+        {
+            if (!wasDownForcedLastFrame)
             {
-                downwardsSpeed += downwardAdditionalSpeed;
+                beginForcedDownTime = Time.time;
+                wasDownForcedLastFrame = true;
             }
 
-            rigidBody.AddForce(Vector2.down * downwardsSpeed, ForceMode2D.Force);
+            downwardsSpeed += downwardAdditionalSpeed;
         }
+        else
+        {
+            if (wasDownForcedLastFrame)
+            {
+                wasDownForcedLastFrame = false;
+                StyleMeter.instance.ForceDownFall(Time.time - beginForcedDownTime);
+            }
+        }
+
+        rigidBody.AddForce(Vector2.down * downwardsSpeed, ForceMode2D.Force);
     }
 
 
@@ -412,9 +447,15 @@ public class Movement : MonoBehaviour
                 break;
             case PlayerStateMachine.State.Jump:
                 PlayAnimation("Jump");
+                StyleMeter.instance.Jump();
+
+                stateMachine.ConsumeState();
                 break;
             case PlayerStateMachine.State.SuperJump:
                 PlayAnimation("AirFlip");
+                StyleMeter.instance.SuperJump();
+
+                stateMachine.ConsumeState();
                 break;
             case PlayerStateMachine.State.Falling:
                 PlayAnimation("Fall");
@@ -468,7 +509,11 @@ public class Movement : MonoBehaviour
 
             slidingTimer = 0;
 
-            rigidBody.AddForce(Vector2.right * rigidBody.linearVelocityX * slideForceRatio, ForceMode2D.Impulse);
+            float slideLinearVelocity = rigidBody.linearVelocityX;
+
+            rigidBody.AddForce(Vector2.right * slideLinearVelocity * slideForceRatio, ForceMode2D.Impulse);
+
+            StyleMeter.instance.Slide(slideLinearVelocity);
 
             stateMachine.state = PlayerStateMachine.State.Slide;
         }
