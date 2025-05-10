@@ -6,6 +6,7 @@ public class CurtainManager : Singleton<CurtainManager>
 {
 
     public CoroutineAnimation curtainMovement;
+    public Sound curtainSound;
 
     public float leftOpenedPosition = 0;
     public float rightOpenedPosition = 0;
@@ -44,6 +45,7 @@ public class CurtainManager : Singleton<CurtainManager>
         }
 
         curtainMovement.Play(this, Movement, null, End);
+        AudioManager.instance.PlaySound(curtainSound);
 
     }
 

@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: ff745b07cc30e1d489efa3d1398da8ed
+guid: e14dc9c23b7e1444a9d3d0c97cdd73b5
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -1945920011541812976
-    second: curtains_0
+      213: 7722654891345554819
+    second: Preview_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: curtains_0
+      name: Preview_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 6000
-        height: 3894
+        width: 475
+        height: 375
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 019e9b63f04bef4e0800000000000000
-      internalID: -1945920011541812976
+      spriteID: 38da59115b16c2b60800000000000000
+      internalID: 7722654891345554819
       vertices: []
       indices: 
       edges: []
@@ -134,8 +134,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      curtains_0: -1945920011541812976
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
