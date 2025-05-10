@@ -16,6 +16,7 @@ public class StyleMeter : Singleton<StyleMeter>
         Still, GroundStuck, Knockback
     }
 
+    public Image styleGlowingIcon;
     public Slider styleMeter;
 
     [Header("Style information")]
@@ -61,6 +62,8 @@ public class StyleMeter : Singleton<StyleMeter>
         styleMeter.maxValue = maxStyle;
 
         styleMeter.value = 0;
+
+        styleGlowingIcon.enabled = false;
     }
 
     public float MapStyleGainMultiplier()
@@ -91,7 +94,7 @@ public class StyleMeter : Singleton<StyleMeter>
             ultraModeBeginTime = Time.time;
             inUltraMode = true;
 
-            print("Begin ultra time");
+            styleGlowingIcon.enabled = true;
 
             style = maxStyle;
         }
@@ -194,6 +197,7 @@ public class StyleMeter : Singleton<StyleMeter>
             if(Time.time - ultraModeBeginTime > ultraModeDuration)
             {
                 inUltraMode = false;
+                styleGlowingIcon.enabled = false;
                 style = 30;
             }
 

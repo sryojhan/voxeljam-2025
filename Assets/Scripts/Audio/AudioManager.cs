@@ -13,7 +13,7 @@ public class AudioManager : Singleton<AudioManager>
 
     public void PlaySound(Sound sound)
     {
-        m_AudioSource.clip = sound.clip;
+        m_AudioSource.clip = sound.clip;    
         m_AudioSource.volume = sound.volume;
         m_AudioSource.pitch = sound.pitch;
         m_AudioSource.panStereo = sound.stereoPan;
