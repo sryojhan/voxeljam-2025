@@ -15,7 +15,8 @@ GameObject:
   - component: {fileID: 6007239078368252194}
   - component: {fileID: 6967008055884502843}
   - component: {fileID: 5140716581124977301}
-  m_Layer: 6
+  - component: {fileID: 6326400445582617951}
+  m_Layer: 3
   m_Name: AcrobatEnemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -310,3 +311,25 @@ LineRenderer:
   m_UseWorldSpace: 1
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
+--- !u!95 &6326400445582617951
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8626448907614194670}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 3def2f8c43ef97d409ff3cbfc0fea6ab, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

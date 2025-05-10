@@ -4,6 +4,7 @@ public class AcrobatEnemy : MonoBehaviour
 {
     public enum Side { Left, Right };
 
+    Animator animator;
     LineRenderer line;
     HingeJoint2D joint;
     SpriteRenderer spriteRenderer;
@@ -19,7 +20,7 @@ public class AcrobatEnemy : MonoBehaviour
     void Start()
     {
         joint = GetComponent<HingeJoint2D>();
-
+        animator = GetComponent<Animator>();
 
         joint.anchor = new Vector2(-transform.position.x, 0);
         joint.connectedAnchor = new Vector2(0, transform.position.y);
@@ -54,5 +55,14 @@ public class AcrobatEnemy : MonoBehaviour
         line.SetPosition(1, transform.position);
         line.startWidth = 0.1f;
         line.endWidth = 0.1f;
+
+        Vector2 direction = new Vector2(transform.position.x - pivotPosition.x, transform.position.y - pivotPosition.y);
+        direction.Normalize();
+
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        // Asegura que todos estén en [0,360)
+        angle = (angle + 360) % 360;
+        Debug.Log(angle);
+        animator.SetBool("Acrobating", angle < 315 && angle > 225);
     }
 }
