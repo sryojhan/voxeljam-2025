@@ -307,7 +307,7 @@ public class Movement : MonoBehaviour
             float horizontalSpeedMagnitude = Mathf.Abs(rigidBody.linearVelocityX);
 
 
-            if (horizontalSpeedMagnitude > 0.01)
+            if (horizontalSpeedMagnitude > 0.05)
             {
                 stateMachine.state = PlayerStateMachine.State.Running;
             }
@@ -362,7 +362,14 @@ public class Movement : MonoBehaviour
         switch (stateMachine.state)
         {
             case PlayerStateMachine.State.Iddle:
-                PlayAnimation("Iddle");
+                if (justGrounded && rigidBody.linearVelocityY < minVerticalSpeedToRoll && Mathf.Abs(rigidBody.linearVelocityX) < minHorizontalSpeedToRoll)
+                {
+                    PlayAnimation("Land");
+                }
+                else
+                {
+                    PlayAnimation("Iddle");
+                }
                 break;
             case PlayerStateMachine.State.Running:
 
