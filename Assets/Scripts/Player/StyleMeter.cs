@@ -112,7 +112,7 @@ public class StyleMeter : Singleton<StyleMeter>
         {
             //On min style gained
 
-            CurtainManager.instance.CloseCurtains(SceneManager.GetActiveScene().name);
+            //CurtainManager.instance.CloseCurtains(SceneManager.GetActiveScene().name);
 
             style = -maxStyle;
         }
