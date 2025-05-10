@@ -18,8 +18,14 @@ public class Morph : MonoBehaviour
 
     public Interpolation interpolation;
 
+
+    public delegate void OnMorphEnd();
+    public OnMorphEnd onMorphEnd;
+
     private void Awake()
     {
+        onMorphEnd = () => { };
+
         rect = GetComponent<RectTransform>();
 
         if (!morphIntoPosition) return;
@@ -83,6 +89,8 @@ public class Morph : MonoBehaviour
 
         rect.anchoredPosition = destinationPosition;
         rect.sizeDelta = destinationSize;
+
+        onMorphEnd();
     }
 
 

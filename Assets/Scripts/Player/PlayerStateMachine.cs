@@ -4,7 +4,7 @@ public class PlayerStateMachine
 {
     public enum State
     {
-        Iddle, Running, Jump, Falling, Slide
+        Iddle, Running, Jump, Falling, Slide, SuperJump
     }
 
     public State previousState = State.Iddle;

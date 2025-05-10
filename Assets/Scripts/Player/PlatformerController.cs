@@ -29,8 +29,6 @@ public class Movement : MonoBehaviour
     public float maxJumpPressTime = 0.5f;
     [Tooltip("Additional gravity added to the player. Useful to determine the difference of the jump when it is holded")]
     public float gravity = 10;
-    [Tooltip("If active, the jump can be charged and will be fired when the jump button is released")]
-    public bool canChargeJump = false;
 
 
     [Header("Air")]
@@ -60,7 +58,7 @@ public class Movement : MonoBehaviour
     private ParticleSystem.MainModule mainModule;
 
 
-    private PlayerStateMachine stateMachine;
+    public PlayerStateMachine stateMachine;
     //private Ground groundContact;
 
     //Input
@@ -240,14 +238,13 @@ public class Movement : MonoBehaviour
     {
         jumpPressTimer += Time.deltaTime;
 
-
         if (!disableJump && !initialJump && (isGrounded || timeSinceGrounded < coyoteTime) && wants2Jump)
         {
             ForceJump(1);
         }
     }
 
-    void ForceJump(float multiplier)
+    void ForceJump(float multiplier, bool isSuperJump = false)
     {
         //Nullify vertical velocity of the jump
         Vector2 vel = rigidBody.linearVelocity;
@@ -261,7 +258,11 @@ public class Movement : MonoBehaviour
 
         jumpPressTimer = 0;
 
-        stateMachine.state = PlayerStateMachine.State.Jump;
+
+        if (isSuperJump)
+            stateMachine.state = PlayerStateMachine.State.SuperJump;
+        else
+            stateMachine.state = PlayerStateMachine.State.Jump;
     }
 
     /// <summary>
@@ -276,7 +277,7 @@ public class Movement : MonoBehaviour
         float speedDif = targetVelocity - rigidBody.linearVelocity.x;
 
 
-        float rate = Mathf.Abs(targetVelocity) - Mathf.Abs(rigidBody.linearVelocity.x) > 0.01f ? moveSpeed : 
+        float rate = Mathf.Abs(targetVelocity) - Mathf.Abs(rigidBody.linearVelocity.x) > 0.01f ? moveSpeed :
             (!isSliding ? decelerationSpeed : slidingDecelerationSpeed);
 
         float speed = Mathf.Pow(Mathf.Abs(speedDif) * rate, forcePower) * Mathf.Sign(speedDif);
@@ -306,6 +307,9 @@ public class Movement : MonoBehaviour
 
     void AddGravity()
     {
+        //Super jump cannot be affected by gravity
+        if (stateMachine.state == PlayerStateMachine.State.SuperJump) return;
+
         if (jumpPressTimer > maxJumpPressTime || !jumpButtonPressed)
             rigidBody.AddForce(Vector2.down * gravity, ForceMode2D.Force);
     }
@@ -316,7 +320,7 @@ public class Movement : MonoBehaviour
         //Slide 'overpowers' other states
         if (stateMachine.state == PlayerStateMachine.State.Slide) return;
 
-        if (isGrounded && stateMachine.state != PlayerStateMachine.State.Jump)
+        if (isGrounded && stateMachine.state != PlayerStateMachine.State.Jump && stateMachine.state != PlayerStateMachine.State.SuperJump)
         {
 
             if (GetHorizontalSpeedMagnitude() > 0.05)
@@ -400,6 +404,9 @@ public class Movement : MonoBehaviour
             case PlayerStateMachine.State.Jump:
                 PlayAnimation("Jump");
                 break;
+            case PlayerStateMachine.State.SuperJump:
+                PlayAnimation("AirFlip");
+                break;
             case PlayerStateMachine.State.Falling:
                 PlayAnimation("Fall");
                 break;
@@ -421,7 +428,7 @@ public class Movement : MonoBehaviour
         {
             slidingTimer += Time.deltaTime;
 
-            if(slidingTimer > slideDuration)
+            if (slidingTimer > slideDuration)
             {
                 isSliding = false;
 
@@ -431,7 +438,7 @@ public class Movement : MonoBehaviour
                 //Super jump
                 if (wants2Jump)
                 {
-                    ForceJump(slidingJumpRatio);
+                    ForceJump(slidingJumpRatio, true);
                 }
                 else
                 {

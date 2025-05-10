@@ -13,17 +13,17 @@ MonoBehaviour:
   m_Name: DefaultTransition
   m_EditorClassIdentifier: 
   inEnabled: 1
-  inTransition: {fileID: 2800000, guid: 27e34d74008308749b8a99d0f16a0df0, type: 3}
+  inTransition: {fileID: 2800000, guid: 77cd30abb6ff70140a24fe8c15cf3624, type: 3}
   inDuration: 1
   inInverted: 0
   inInterpolation:
     type: 0
     mode: 0
-  backgroundColor: {r: 0.8666667, g: 0.8427487, b: 0.4862745, a: 1}
+  backgroundColor: {r: 0, g: 0, b: 0, a: 1}
   background: {fileID: 0}
   middleScreenDuration: 0
   outEnabled: 1
-  outTransition: {fileID: 2800000, guid: b64f2036e61e0be4e81489797d3184fb, type: 3}
+  outTransition: {fileID: 2800000, guid: 77cd30abb6ff70140a24fe8c15cf3624, type: 3}
   outDuration: 1
   outInverted: 1
   outInterpolation:

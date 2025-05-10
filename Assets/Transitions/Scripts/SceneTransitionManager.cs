@@ -19,6 +19,13 @@ namespace SceneTransition
 
         private bool inTransition;
 
+
+
+        //Illustration sequence patch
+        public bool useCustomFunction = false;
+        public delegate void CustomFunction();
+        public CustomFunction customFunction = () => { };
+
         private void Start()
         {
             if (DestroyIfInitialised(this)) return;
@@ -99,7 +106,15 @@ namespace SceneTransition
 
             material.SetTexture("_TransitionGradient", transition.outTransition);
             //Load Scene
-            SceneManager.LoadScene(sceneName);
+            if(!useCustomFunction)
+            {
+                SceneManager.LoadScene(sceneName);
+            }
+            else {
+
+                customFunction();
+            }
+
 
             if (transition.middleScreenDuration > 0)
                 yield return new WaitForSeconds(transition.middleScreenDuration);

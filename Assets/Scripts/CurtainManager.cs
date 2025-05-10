@@ -48,7 +48,7 @@ public class CurtainManager : Singleton<CurtainManager>
     }
 
     [EasyButtons.Button]
-    void CloseCurtains(string sceneToChange)
+    public void CloseCurtains(string sceneToChange)
     {
         Vector2 leftInitialPosition = leftCurtain.rectTransform.anchoredPosition;
         Vector2 leftDestination = new Vector2(0, leftInitialPosition.y);
