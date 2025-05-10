@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Movement : MonoBehaviour
+public class Movement : Singleton<Movement>
 {
     [Header("Movement")]
     [Tooltip("Maximum speed of the character")]
