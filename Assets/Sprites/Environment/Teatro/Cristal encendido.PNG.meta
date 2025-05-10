@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: e14dc9c23b7e1444a9d3d0c97cdd73b5
+guid: 8ff35e1acd437334d8974f0dd9788d19
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 7722654891345554819
-    second: Preview_0
+      213: -9169642716245626879
+    second: Cristal encendido_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,12 +46,12 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 108
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Preview_0
+      name: Cristal encendido_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 475
-        height: 375
+        x: 820
+        y: 837
+        width: 280
+        height: 243
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 38da59115b16c2b60800000000000000
-      internalID: 7722654891345554819
+      spriteID: 1007eec4882eeb080800000000000000
+      internalID: -9169642716245626879
       vertices: []
       indices: 
       edges: []
@@ -125,7 +125,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Preview_0: 7722654891345554819
+      Cristal encendido_0: -9169642716245626879
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: e14dc9c23b7e1444a9d3d0c97cdd73b5
+guid: bfea82b980adb234e9b21782ab2c200b
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 7722654891345554819
-    second: Preview_0
+      213: 1016031141298645601
+    second: Suelo_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,12 +46,12 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 108
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Preview_0
+      name: Suelo_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 475
-        height: 375
+        width: 1920
+        height: 1080
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 38da59115b16c2b60800000000000000
-      internalID: 7722654891345554819
+      spriteID: 16a27d990faa91e00800000000000000
+      internalID: 1016031141298645601
       vertices: []
       indices: 
       edges: []
@@ -125,7 +125,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Preview_0: 7722654891345554819
+      Suelo_0: 1016031141298645601
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

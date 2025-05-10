@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: e14dc9c23b7e1444a9d3d0c97cdd73b5
+guid: 6ec9e1b74fc4fc444839bfd79e88bf7b
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 7722654891345554819
-    second: Preview_0
+      213: -328652561914460169
+    second: cortina izquierda_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -74,7 +74,7 @@ TextureImporter:
     buildTarget: DefaultTexturePlatform
     maxTextureSize: 2048
     resizeAlgorithm: 0
-    textureFormat: -1
+    textureFormat: 4
     textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
@@ -100,23 +100,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Preview_0
+      name: cortina izquierda_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 475
-        height: 375
+        width: 959
+        height: 1080
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 38da59115b16c2b60800000000000000
-      internalID: 7722654891345554819
+      spriteID: 7f701987c34607bf0800000000000000
+      internalID: -328652561914460169
       vertices: []
       indices: 
       edges: []
@@ -125,7 +125,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 077ae50c92356f047bf994e424062e70
     internalID: 0
     vertices: []
     indices: 
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Preview_0: 7722654891345554819
+      cortina izquierda_0: -328652561914460169
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class StyleMeter : Singleton<StyleMeter>
@@ -19,14 +20,16 @@ public class StyleMeter : Singleton<StyleMeter>
 
     [Header("Style information")]
     const float maxStyle = 100f;
-    public float positiveGain = 10f;
-    public float negativeGain = 10f;
 
     public float styleGainMinMultiplier = 3f;
     public float styleGainMaxMultiplier = .3f;
 
     public float styleLoseMinMultiplier = .3f;
     public float styleLoseMaxMultiplier = 3f;
+
+    [Header("Ultra mode")]
+    public float ultraModeDuration = 5f;
+    public float ultraModeSpeedMultiplier = 1.3f;
 
     [Header("Style score")]
     public float jumpScore = 10f;
@@ -37,17 +40,20 @@ public class StyleMeter : Singleton<StyleMeter>
     public float forceDownwardsMultiplier = 5f;
 
     [Header("Style subtracters")]
-    public float beingStill = 5f;
+    public float beingInactive = 5f;
     public float beingGroundStuck = 2f;
     public float knockBack = 1f;
-
+    public float timeToDeductPoints = 5f;
 
     private float airborneBegin = -1;
-
+    private float groundedBegin = -1;
+    private float lastInputTime = -1;
 
     private float style = 0;
 
-
+    private float ultraModeBeginTime = 0;
+    private bool inUltraMode = false;
+    
 
     private void Start()
     {
@@ -74,31 +80,52 @@ public class StyleMeter : Singleton<StyleMeter>
 
     public void GainStyle(float value)
     {
+        if (!CanChangeStyleValue()) return;
+
         style += MapStyleGainMultiplier() * value;
 
 
-        if(style >= maxStyle)
+        if (style >= maxStyle)
         {
             //On max style gained
+            ultraModeBeginTime = Time.time;
+            inUltraMode = true;
+
+            print("Begin ultra time");
+
             style = maxStyle;
         }
 
         OnStyleValueChanged();
     }
 
-    public void LoseStyle(float value)
+    public void DeductStyle(float value)
     {
+        if (!CanChangeStyleValue()) return;
+
         style -= MapStyleLoseMultiplier() * value;
 
-        if(style <= -maxStyle)
+        if (style <= -maxStyle)
         {
             //On min style gained
+
+            CurtainManager.instance.CloseCurtains(SceneManager.GetActiveScene().name);
+
             style = -maxStyle;
         }
 
         OnStyleValueChanged();
     }
 
+    private bool CanChangeStyleValue()
+    {
+        return !inUltraMode;
+    }
+
+    public bool IsUltraModeActive()
+    {
+        return inUltraMode;
+    }
 
     private void OnStyleValueChanged()
     {
@@ -108,13 +135,20 @@ public class StyleMeter : Singleton<StyleMeter>
 
     public void BeginGrounded()
     {
-        float airborneTime = Time.time - airborneBegin;
+        groundedBegin = Time.time;
 
-        GainStyle(Mathf.Exp(airborneTime * airborneScorePower));
+        if (airborneBegin > 0)
+        {
+
+            float airborneTime = Time.time - airborneBegin;
+            GainStyle(Mathf.Exp(airborneTime * airborneScorePower));
+        }
     }
 
     public void BeginAirborne()
     {
+        groundedBegin = -1;
+        beingInactive = -1;
         airborneBegin = Time.time;
     }
 
@@ -148,9 +182,35 @@ public class StyleMeter : Singleton<StyleMeter>
         GainStyle(time * forceDownwardsMultiplier);
     }
 
+    public void OnInput()
+    {
+        lastInputTime = Time.time;
+    }
 
     private void Update()
     {
-        
+        if (inUltraMode)
+        {
+            if(Time.time - ultraModeBeginTime > ultraModeDuration)
+            {
+                inUltraMode = false;
+                style = 30;
+            }
+
+            return;
+        }
+
+
+        if (lastInputTime > 0 && Time.time - lastInputTime > timeToDeductPoints)
+        {
+            DeductStyle(beingInactive);
+            lastInputTime = Time.time;
+        }
+
+        if (groundedBegin > 0 && Time.time - groundedBegin > timeToDeductPoints)
+        {
+            DeductStyle(beingGroundStuck);
+            groundedBegin = Time.time;
+        }
     }
 }

@@ -282,6 +282,8 @@ public class Movement : Singleton<Movement>
             stateMachine.state = PlayerStateMachine.State.SuperJump;
         else
             stateMachine.state = PlayerStateMachine.State.Jump;
+
+        StyleMeter.instance.OnInput();
     }
 
     /// <summary>
@@ -293,6 +295,13 @@ public class Movement : Singleton<Movement>
 
         float targetVelocity = horizontalInput * moveSpeed;
 
+
+        if (StyleMeter.instance.IsUltraModeActive())
+        {
+            targetVelocity *= StyleMeter.instance.ultraModeSpeedMultiplier;
+        }
+
+
         float speedDif = targetVelocity - rigidBody.linearVelocity.x;
 
 
@@ -300,6 +309,8 @@ public class Movement : Singleton<Movement>
             (!isSliding ? decelerationSpeed : slidingDecelerationSpeed);
 
         float speed = Mathf.Pow(Mathf.Abs(speedDif) * rate, forcePower) * Mathf.Sign(speedDif);
+
+        if (speed > 0.01f) StyleMeter.instance.OnInput();
 
         rigidBody.AddForce(speed * Vector2.right, ForceMode2D.Force);
     }
