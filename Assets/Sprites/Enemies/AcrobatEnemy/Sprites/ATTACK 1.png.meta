@@ -1,37 +1,28 @@
 fileFormatVersion: 2
-guid: 1d824f34680df8e48b4b07b0c8635343
+guid: 88ebbc663f23508408cbce32823b4364
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 7110878671101974141
-    second: dash_0
+      213: 8886490851947454144
+    second: ATTACK 1_0
   - first:
-      213: 7643240275301989466
-    second: dash_1
+      213: 6548489276043825817
+    second: ATTACK 1_1
   - first:
-      213: -8809873816130030523
-    second: dash_2
+      213: 4970056502602508726
+    second: ATTACK 1_2
   - first:
-      213: -4770175892979620097
-    second: dash_3
+      213: 1935231433567745852
+    second: ATTACK 1_3
   - first:
-      213: -1190105860681885623
-    second: dash_4
+      213: 8810267081325647525
+    second: ATTACK 1_4
   - first:
-      213: 8035217175372748222
-    second: dash_5
+      213: 4172772526038875549
+    second: ATTACK 1_5
   - first:
-      213: 697318719324224050
-    second: dash_6
-  - first:
-      213: -123402397366724103
-    second: dash_7
-  - first:
-      213: 1856454893650784056
-    second: dash_8
-  - first:
-      213: -6726272719258073990
-    second: dash_9
+      213: -9022913262071093832
+    second: ATTACK 1_6
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -64,7 +55,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 0
+    filterMode: 1
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -78,7 +69,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 32
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -123,30 +114,17 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: Android
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: dash_0
+      name: ATTACK 1_0
       rect:
         serializedVersion: 2
-        x: 6
-        y: 7
-        width: 34
-        height: 28
+        x: 41
+        y: 14
+        width: 23
+        height: 31
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -155,20 +133,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: d765fefe97aeea260800000000000000
-      internalID: 7110878671101974141
+      spriteID: 0ce1612e858235b70800000000000000
+      internalID: 8886490851947454144
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: dash_1
+      name: ATTACK 1_1
       rect:
         serializedVersion: 2
-        x: 57
-        y: 7
-        width: 31
-        height: 28
+        x: 137
+        y: 14
+        width: 23
+        height: 31
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -177,129 +155,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: a5c7556e88e321a60800000000000000
-      internalID: 7643240275301989466
+      spriteID: 9921c0a1d48e0ea50800000000000000
+      internalID: 6548489276043825817
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: dash_2
+      name: ATTACK 1_2
       rect:
         serializedVersion: 2
-        x: 105
-        y: 7
-        width: 31
-        height: 28
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 544fd81e07a0db580800000000000000
-      internalID: -8809873816130030523
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: dash_3
-      rect:
-        serializedVersion: 2
-        x: 153
-        y: 7
-        width: 31
-        height: 28
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: ff661de7c4eeccdb0800000000000000
-      internalID: -4770175892979620097
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: dash_4
-      rect:
-        serializedVersion: 2
-        x: 201
-        y: 7
-        width: 31
-        height: 28
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 94812f07605eb7fe0800000000000000
-      internalID: -1190105860681885623
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: dash_5
-      rect:
-        serializedVersion: 2
-        x: 248
-        y: 7
-        width: 25
-        height: 29
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: eb5d537d273d28f60800000000000000
-      internalID: 8035217175372748222
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: dash_6
-      rect:
-        serializedVersion: 2
-        x: 297
-        y: 7
-        width: 24
-        height: 29
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 23afc804eaf5da900800000000000000
-      internalID: 697318719324224050
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: dash_7
-      rect:
-        serializedVersion: 2
-        x: 343
-        y: 7
-        width: 27
+        x: 233
+        y: 14
+        width: 22
         height: 30
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -309,20 +177,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 9f956846c26994ef0800000000000000
-      internalID: -123402397366724103
+      spriteID: 6b92e3f7e0039f440800000000000000
+      internalID: 4970056502602508726
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: dash_8
+      name: ATTACK 1_3
       rect:
         serializedVersion: 2
-        x: 394
-        y: 5
-        width: 24
-        height: 25
+        x: 329
+        y: 14
+        width: 22
+        height: 29
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -331,20 +199,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 83f279dc3e373c910800000000000000
-      internalID: 1856454893650784056
+      spriteID: c37b9fb4cb25bda10800000000000000
+      internalID: 1935231433567745852
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: dash_9
+      name: ATTACK 1_4
       rect:
         serializedVersion: 2
-        x: 405
-        y: 29
-        width: 10
-        height: 10
+        x: 420
+        y: 13
+        width: 58
+        height: 35
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -353,8 +221,52 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: a74c832699a77a2a0800000000000000
-      internalID: -6726272719258073990
+      spriteID: 5a69bbe4b3b544a70800000000000000
+      internalID: 8810267081325647525
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ATTACK 1_5
+      rect:
+        serializedVersion: 2
+        x: 515
+        y: 14
+        width: 51
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d9d7e0f018aa8e930800000000000000
+      internalID: 4172772526038875549
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ATTACK 1_6
+      rect:
+        serializedVersion: 2
+        x: 611
+        y: 14
+        width: 40
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8b5671f813c28c280800000000000000
+      internalID: -9022913262071093832
       vertices: []
       indices: 
       edges: []
@@ -372,17 +284,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      dash_0: 7110878671101974141
-      dash_1: 7643240275301989466
-      dash_2: -8809873816130030523
-      dash_3: -4770175892979620097
-      dash_4: -1190105860681885623
-      dash_5: 8035217175372748222
-      dash_6: 697318719324224050
-      dash_7: -123402397366724103
-      dash_8: 1856454893650784056
-      dash_9: -6726272719258073990
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
