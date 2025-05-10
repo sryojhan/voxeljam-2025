@@ -8,10 +8,15 @@ public class CurtainManager : Singleton<CurtainManager>
     public CoroutineAnimation curtainMovement;
 
     public float leftOpenedPosition = 0;
+    private float leftClosedPosition = 0;
     public float rightOpenedPosition = 0;
+    private float rightClosedPosition = 0;
 
     private void Start()
     {
+        leftClosedPosition = leftCurtain.rectTransform.anchoredPosition.x;
+        rightClosedPosition = rightCurtain.rectTransform.anchoredPosition.x;
+
         OpenCurtains();
     }
 
@@ -50,12 +55,14 @@ public class CurtainManager : Singleton<CurtainManager>
     [EasyButtons.Button]
     public void CloseCurtains(string sceneToChange)
     {
+        if (!curtainMovement.IsFinished()) return;
+
         Vector2 leftInitialPosition = leftCurtain.rectTransform.anchoredPosition;
-        Vector2 leftDestination = new Vector2(0, leftInitialPosition.y);
+        Vector2 leftDestination = new Vector2(leftClosedPosition, leftInitialPosition.y);
 
 
         Vector2 rightInitialPosition = rightCurtain.rectTransform.anchoredPosition;
-        Vector2 rightDestination = new Vector2(0, leftInitialPosition.y);
+        Vector2 rightDestination = new Vector2(rightClosedPosition, leftInitialPosition.y);
 
 
         void Movement(float i)

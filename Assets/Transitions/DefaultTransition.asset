@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: DefaultTransition
   m_EditorClassIdentifier: 
   inEnabled: 1
-  inTransition: {fileID: 2800000, guid: 77cd30abb6ff70140a24fe8c15cf3624, type: 3}
+  inTransition: {fileID: 2800000, guid: 015720429fd046144a1997e7616e3302, type: 3}
   inDuration: 1
   inInverted: 0
   inInterpolation:
@@ -23,7 +23,7 @@ MonoBehaviour:
   background: {fileID: 0}
   middleScreenDuration: 0
   outEnabled: 1
-  outTransition: {fileID: 2800000, guid: 77cd30abb6ff70140a24fe8c15cf3624, type: 3}
+  outTransition: {fileID: 2800000, guid: 27e34d74008308749b8a99d0f16a0df0, type: 3}
   outDuration: 1
   outInverted: 1
   outInterpolation:
