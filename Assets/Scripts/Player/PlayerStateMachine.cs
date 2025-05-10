@@ -4,10 +4,12 @@ public class PlayerStateMachine
 {
     public enum State
     {
-        Iddle, Running, Jump, Falling, Slide, SuperJump
+        Iddle, Running, Jump, Falling, Slide, SuperJump,
+
+        Void
     }
 
-    public State previousState = State.Iddle;
+    public State previousState = State.Void;
     public State currentState = State.Iddle;
 
     public State state
@@ -26,5 +28,10 @@ public class PlayerStateMachine
     public bool StateHasChanged()
     {
         return currentState != previousState;
+    }
+
+    public void ConsumeState()
+    {
+        previousState = currentState;
     }
 }
