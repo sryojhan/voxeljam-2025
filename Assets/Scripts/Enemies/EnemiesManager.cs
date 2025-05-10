@@ -2,9 +2,15 @@ using UnityEngine;
 
 public class EnemiesManager : MonoBehaviour
 {
+    // Acrobat enemy
     [SerializeField] GameObject pivot;
     [SerializeField] Vector2 acrobatEnemySpawnX;
     [SerializeField] GameObject acrobatEnemyPrefab;
+
+    // Basic Enemy
+    [SerializeField] GameObject basicEnemyPrefab;
+    [SerializeField] Vector2 basicEnemySpawnX;
+    [SerializeField] float basicEnemySpawnY;
 
     void Start()
     {
@@ -15,6 +21,10 @@ public class EnemiesManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             SpawnAcrobatEnemy();
+        }
+        if (Input.GetKeyDown(KeyCode.RightShift))
+        {
+            SpawnBasicEnemy();
         }
     }
 
@@ -34,5 +44,14 @@ public class EnemiesManager : MonoBehaviour
         AcrobatEnemy acrobat = enemy.GetComponent<AcrobatEnemy>();
         acrobat.SetSpawnSide((AcrobatEnemy.Side)side);
         acrobat.SetPivotPosition(pivot.transform.position);
+    }
+
+    void SpawnBasicEnemy()
+    {
+        float x = Random.Range(basicEnemySpawnX.x, basicEnemySpawnX.y);
+
+        Vector3 enemyPosition = new Vector3(x, basicEnemySpawnY, 0);
+
+        GameObject enemy = Instantiate(basicEnemyPrefab, enemyPosition, Quaternion.identity, null);
     }
 }
