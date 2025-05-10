@@ -766,7 +766,7 @@ MonoBehaviour:
   minHorizontalSpeedToSlide: 2
   slideForceRatio: 3
   slideDuration: 0.4
-  slidingJumpRatio: 1.5
+  slidingJumpRatio: 1
   slidingDecelerationSpeed: 5
   jumpForce: 10
   cacheJumpTime: 0.2
@@ -776,8 +776,9 @@ MonoBehaviour:
   gravity: 20
   airMoveSpeed: 10
   airFallSpeed: 10
+  downwardAdditionalSpeed: 70
   minVerticalSpeedToRoll: -1
-  minHorizontalSpeedToRoll: 1
+  minHorizontalSpeedToRoll: 4
   groundLayer:
     serializedVersion: 2
     m_Bits: 64

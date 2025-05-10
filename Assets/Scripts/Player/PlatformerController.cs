@@ -34,8 +34,10 @@ public class Movement : MonoBehaviour
     [Header("Air")]
     [Tooltip("Player speed when the character is not grounded")]
     public float airMoveSpeed = 10;
-    [Tooltip("Force added to the player when groig downwards")]
+    [Tooltip("Force added to the player when going downwards")]
     public float airFallSpeed = 10;
+    [Tooltip("Additional force added downwards input by the player")]
+    public float downwardAdditionalSpeed = 10;
 
 
     [Header("Roll")]
@@ -294,7 +296,14 @@ public class Movement : MonoBehaviour
     {
         if (rigidBody.linearVelocity.y < 0 && !isGrounded)
         {
-            rigidBody.AddForce(Vector2.down * airFallSpeed, ForceMode2D.Force);
+            float downwardsSpeed = airFallSpeed;
+
+            if (goDownwards)
+            {
+                downwardsSpeed += downwardAdditionalSpeed;
+            }
+
+            rigidBody.AddForce(Vector2.down * downwardsSpeed, ForceMode2D.Force);
         }
     }
 
