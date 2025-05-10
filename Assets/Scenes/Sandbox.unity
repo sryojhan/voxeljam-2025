@@ -352,8 +352,10 @@ MonoBehaviour:
   moveSpeed: 10
   decelerationSpeed: 10
   forcePower: 1
-  slideForceRatio: 1
-  slideDuration: 1
+  minHorizontalSpeedToSlide: 2
+  slideForceRatio: 3
+  slideDuration: 0.4
+  slidingJumpRatio: 1.5
   jumpForce: 10
   cacheJumpTime: 0.2
   coyoteTime: 0.2

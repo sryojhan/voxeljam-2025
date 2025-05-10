@@ -11,8 +11,11 @@ public class Movement : MonoBehaviour
     public float forcePower = 1;
 
     [Header("Slide")]
+    public float minHorizontalSpeedToSlide = 1;
     public float slideForceRatio = 1;
     public float slideDuration = 1;
+    public float slidingJumpRatio = 1.5f;
+    public float slidingDecelerationSpeed = 5;
 
     [Header("Jump")]
     public float jumpForce = 20;
@@ -41,7 +44,6 @@ public class Movement : MonoBehaviour
     public float minVerticalSpeedToRoll = -1;
     public float minHorizontalSpeedToRoll = 1;
 
-
     [Header("World jump data")]
     public LayerMask groundLayer;
 
@@ -68,6 +70,8 @@ public class Movement : MonoBehaviour
     private bool goDownwards = false;
 
     private float cacheJumpTimer = 0;
+
+    //Dont jump several times in the same frame
     private bool initialJump = false;
     private bool jumpButtonPressed = false;
 
@@ -80,8 +84,7 @@ public class Movement : MonoBehaviour
 
     //Sliding
     private bool isSliding = false;
-
-
+    private float slidingTimer = 0;
 
     private void Start()
     {
@@ -108,6 +111,8 @@ public class Movement : MonoBehaviour
         CalculateGrounded();
 
         Jump();
+
+        ManageSlide();
 
         SetState();
         SetFlip();
@@ -140,10 +145,7 @@ public class Movement : MonoBehaviour
     /// </summary>
     void ProcessVerticalInput()
     {
-        if (disableJump)
-            wants2Jump = false;
-
-        else if (InputManager.instance.JumpPressedThisFrame())
+        if (InputManager.instance.JumpPressedThisFrame())
         {
             wants2Jump = true;
             cacheJumpTimer = cacheJumpTime;
@@ -156,6 +158,8 @@ public class Movement : MonoBehaviour
             jumpButtonPressed = false;
         }
 
+
+        goDownwards = InputManager.instance.GetVertical() < -0.5f;
     }
 
     /// <summary>
@@ -163,7 +167,7 @@ public class Movement : MonoBehaviour
     /// </summary>
     void ProcessJumpCache()
     {
-        if (wants2Jump)
+        if (wants2Jump && !isSliding)
         {
             cacheJumpTimer -= Time.deltaTime;
             if (cacheJumpTimer <= 0)
@@ -213,7 +217,7 @@ public class Movement : MonoBehaviour
         if (isGrounded)
         {
             timeSinceGrounded = 0;
-            //TODO: is grounded
+            //TODO: is grounded component
         }
         else
         {
@@ -237,22 +241,27 @@ public class Movement : MonoBehaviour
         jumpPressTimer += Time.deltaTime;
 
 
-        if (!initialJump && (isGrounded || timeSinceGrounded < coyoteTime) && wants2Jump)
+        if (!disableJump && !initialJump && (isGrounded || timeSinceGrounded < coyoteTime) && wants2Jump)
         {
-            //Nullify vertical velocity of the jump
-            Vector2 vel = rigidBody.linearVelocity;
-            vel.y = 0;
-            rigidBody.linearVelocity = vel;
-
-
-            rigidBody.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
-            initialJump = true;
-            wants2Jump = false;
-
-            jumpPressTimer = 0;
-
-            stateMachine.state = PlayerStateMachine.State.Jump;
+            ForceJump(1);
         }
+    }
+
+    void ForceJump(float multiplier)
+    {
+        //Nullify vertical velocity of the jump
+        Vector2 vel = rigidBody.linearVelocity;
+        vel.y = 0;
+        rigidBody.linearVelocity = vel;
+
+
+        rigidBody.AddForce(Vector2.up * jumpForce * multiplier, ForceMode2D.Impulse);
+        initialJump = true;
+        wants2Jump = false;
+
+        jumpPressTimer = 0;
+
+        stateMachine.state = PlayerStateMachine.State.Jump;
     }
 
     /// <summary>
@@ -260,13 +269,15 @@ public class Movement : MonoBehaviour
     /// </summary>
     void AddHorizontaForce()
     {
-        //TODO: Cambiar la velocidad dependiendo de si el jugador esta en el aire o en el suelo
+        //TODO: Cambiar la velocidad de control del jugador dependiendo de si el jugador esta en el aire o en el suelo
 
         float targetVelocity = horizontalInput * moveSpeed;
 
         float speedDif = targetVelocity - rigidBody.linearVelocity.x;
 
-        float rate = Mathf.Abs(targetVelocity) - Mathf.Abs(rigidBody.linearVelocity.x) > 0.01f ? moveSpeed : decelerationSpeed;
+
+        float rate = Mathf.Abs(targetVelocity) - Mathf.Abs(rigidBody.linearVelocity.x) > 0.01f ? moveSpeed : 
+            (!isSliding ? decelerationSpeed : slidingDecelerationSpeed);
 
         float speed = Mathf.Pow(Mathf.Abs(speedDif) * rate, forcePower) * Mathf.Sign(speedDif);
 
@@ -302,12 +313,13 @@ public class Movement : MonoBehaviour
 
     void SetState()
     {
+        //Slide 'overpowers' other states
+        if (stateMachine.state == PlayerStateMachine.State.Slide) return;
+
         if (isGrounded && stateMachine.state != PlayerStateMachine.State.Jump)
         {
-            float horizontalSpeedMagnitude = Mathf.Abs(rigidBody.linearVelocityX);
 
-
-            if (horizontalSpeedMagnitude > 0.05)
+            if (GetHorizontalSpeedMagnitude() > 0.05)
             {
                 stateMachine.state = PlayerStateMachine.State.Running;
             }
@@ -362,7 +374,7 @@ public class Movement : MonoBehaviour
         switch (stateMachine.state)
         {
             case PlayerStateMachine.State.Iddle:
-                if (justGrounded && rigidBody.linearVelocityY < minVerticalSpeedToRoll && Mathf.Abs(rigidBody.linearVelocityX) < minHorizontalSpeedToRoll)
+                if (justGrounded && rigidBody.linearVelocityY < minVerticalSpeedToRoll && GetHorizontalSpeedMagnitude() < minHorizontalSpeedToRoll)
                 {
                     PlayAnimation("Land");
                 }
@@ -373,7 +385,7 @@ public class Movement : MonoBehaviour
                 break;
             case PlayerStateMachine.State.Running:
 
-                if (justGrounded && rigidBody.linearVelocityY < minVerticalSpeedToRoll && Mathf.Abs(rigidBody.linearVelocityX) > minHorizontalSpeedToRoll)
+                if (justGrounded && rigidBody.linearVelocityY < minVerticalSpeedToRoll && GetHorizontalSpeedMagnitude() > minHorizontalSpeedToRoll)
                 {
 
                     PlayAnimation("Roll");
@@ -392,13 +404,60 @@ public class Movement : MonoBehaviour
                 PlayAnimation("Fall");
                 break;
             case PlayerStateMachine.State.Slide:
+                PlayAnimation("Slide");
                 break;
+
             default:
                 break;
         }
 
 
     }
+
+
+    void ManageSlide()
+    {
+        if (isSliding)
+        {
+            slidingTimer += Time.deltaTime;
+
+            if(slidingTimer > slideDuration)
+            {
+                isSliding = false;
+
+                disableMovement = false;
+                disableJump = false;
+
+                //Super jump
+                if (wants2Jump)
+                {
+                    ForceJump(slidingJumpRatio);
+                }
+                else
+                {
+
+                    stateMachine.state = PlayerStateMachine.State.Falling;
+                }
+            }
+        }
+        else
+        {
+            if (!goDownwards) return;
+            if (!isGrounded) return;
+            if (GetHorizontalSpeedMagnitude() < minHorizontalSpeedToSlide) return;
+
+            isSliding = true;
+            disableMovement = true;
+            disableJump = true;
+
+            slidingTimer = 0;
+
+            rigidBody.AddForce(Vector2.right * rigidBody.linearVelocityX * slideForceRatio, ForceMode2D.Impulse);
+
+            stateMachine.state = PlayerStateMachine.State.Slide;
+        }
+    }
+
 
     /// <summary>
     /// Change the particle properties depending on the player state and velocity
@@ -440,6 +499,11 @@ public class Movement : MonoBehaviour
 
         //    mainModule.startColor = color;
         //}
+    }
+
+    private float GetHorizontalSpeedMagnitude()
+    {
+        return Mathf.Abs(rigidBody.linearVelocityX);
     }
 
     private void OnDrawGizmosSelected()
