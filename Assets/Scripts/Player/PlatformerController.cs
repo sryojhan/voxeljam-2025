@@ -2,21 +2,6 @@ using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
-    /*
-     * TODO:
-     * 
-     *  Poder pulsar hacia abajo para caer mas rapido
-     *  Particulas de choque con el suelo
-     *  Agacharse
-     *  
-     *  Salto cargado
-     *  Agacharse
-     *  Walljump
-     *  Wallslide
-     *  
-     *  Salto bomba
-     */
-
     [Header("Movement")]
     [Tooltip("Maximum speed of the character")]
     public float moveSpeed = 10;
@@ -51,6 +36,12 @@ public class Movement : MonoBehaviour
     [Tooltip("Force added to the player when groig downwards")]
     public float airFallSpeed = 10;
 
+
+    [Header("Roll")]
+    public float minVerticalSpeedToRoll = -1;
+    public float minHorizontalSpeedToRoll = 1;
+
+
     [Header("World jump data")]
     public LayerMask groundLayer;
 
@@ -66,6 +57,8 @@ public class Movement : MonoBehaviour
     private ParticleSystem groundParticles;
     private ParticleSystem.MainModule mainModule;
 
+
+    private PlayerStateMachine stateMachine;
     //private Ground groundContact;
 
     //Input
@@ -83,12 +76,17 @@ public class Movement : MonoBehaviour
     private bool isGrounded = false;
     private float timeSinceGrounded = 0;
 
+    private bool justGrounded = false;
+
     //Sliding
     private bool isSliding = false;
 
 
+
     private void Start()
     {
+        stateMachine = new PlayerStateMachine();
+
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         animator = GetComponentInChildren<Animator>();
         rigidBody = GetComponent<Rigidbody2D>();
@@ -103,15 +101,16 @@ public class Movement : MonoBehaviour
 
     public void Update()
     {
-        GetHorizontalInput();
-        GetVerticalInput();
+        ProcessHorizontalInput();
+        ProcessVerticalInput();
         ProcessJumpCache();
 
         CalculateGrounded();
 
         Jump();
 
-
+        SetState();
+        SetFlip();
         SetUpAnimation();
         //SetUpParticles();
     }
@@ -128,23 +127,23 @@ public class Movement : MonoBehaviour
     /// <summary>
     /// Process horizontal input
     /// </summary>
-    void GetHorizontalInput()
+    void ProcessHorizontalInput()
     {
         if (disableMovement)
             horizontalInput = 0;
         else
-            horizontalInput = Input.GetAxis("Horizontal");
+            horizontalInput = InputManager.instance.GetHorizontal();
     }
 
     /// <summary>
     /// Process vertical input (jump + crouch)
     /// </summary>
-    void GetVerticalInput()
+    void ProcessVerticalInput()
     {
         if (disableJump)
             wants2Jump = false;
 
-        else if (Input.GetButtonDown("Jump"))
+        else if (InputManager.instance.JumpPressedThisFrame())
         {
             wants2Jump = true;
             cacheJumpTimer = cacheJumpTime;
@@ -152,7 +151,7 @@ public class Movement : MonoBehaviour
             jumpButtonPressed = true;
         }
 
-        else if (Input.GetButtonUp("Jump"))
+        else if (InputManager.instance.JumpReleasedThisFrame())
         {
             jumpButtonPressed = false;
         }
@@ -185,9 +184,13 @@ public class Movement : MonoBehaviour
 
         bool newGroundedValue = collision != null;
 
+        justGrounded = false;
+
         if (!isGrounded && newGroundedValue)
         {
             //Player just touched the ground
+            justGrounded = true;
+
 
             initialJump = false;
 
@@ -247,6 +250,8 @@ public class Movement : MonoBehaviour
             wants2Jump = false;
 
             jumpPressTimer = 0;
+
+            stateMachine.state = PlayerStateMachine.State.Jump;
         }
     }
 
@@ -295,12 +300,95 @@ public class Movement : MonoBehaviour
     }
 
 
+    void SetState()
+    {
+        if (isGrounded && stateMachine.state != PlayerStateMachine.State.Jump)
+        {
+            float horizontalSpeedMagnitude = Mathf.Abs(rigidBody.linearVelocityX);
+
+
+            if (horizontalSpeedMagnitude > 0.01)
+            {
+                stateMachine.state = PlayerStateMachine.State.Running;
+            }
+            else
+            {
+                stateMachine.state = PlayerStateMachine.State.Iddle;
+            }
+        }
+
+        else //airborne
+        {
+            if (rigidBody.linearVelocityY <= 0)
+            {
+                stateMachine.state = PlayerStateMachine.State.Falling;
+            }
+        }
+    }
+
+    void SetFlip()
+    {
+        if (rigidBody.linearVelocityX > .01f)
+        {
+            spriteRenderer.flipX = false;
+        }
+
+        else if (rigidBody.linearVelocityX < -.01f)
+        {
+            spriteRenderer.flipX = true;
+        }
+    }
+
+    /// <summary>
+    /// Try to play a given animation, if it is already playing then ignore ir
+    /// </summary>
+    void PlayAnimation(string animationName)
+    {
+        if (!animator.GetCurrentAnimatorStateInfo(0).IsName(animationName))
+        {
+            animator.Play(animationName);
+        }
+    }
+
+
     /// <summary>
     /// Change the animation of the character depending on the state and velocity of the player
     /// </summary>
 
     void SetUpAnimation()
     {
+        if (!stateMachine.StateHasChanged()) return;
+
+        switch (stateMachine.state)
+        {
+            case PlayerStateMachine.State.Iddle:
+                PlayAnimation("Iddle");
+                break;
+            case PlayerStateMachine.State.Running:
+
+                if (justGrounded && rigidBody.linearVelocityY < minVerticalSpeedToRoll && Mathf.Abs(rigidBody.linearVelocityX) > minHorizontalSpeedToRoll)
+                {
+
+                    PlayAnimation("Roll");
+                }
+                else
+                {
+                    PlayAnimation("Run");
+                }
+
+
+                break;
+            case PlayerStateMachine.State.Jump:
+                PlayAnimation("Jump");
+                break;
+            case PlayerStateMachine.State.Falling:
+                PlayAnimation("Fall");
+                break;
+            case PlayerStateMachine.State.Slide:
+                break;
+            default:
+                break;
+        }
 
 
     }
